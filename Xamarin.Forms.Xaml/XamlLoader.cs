@@ -86,7 +86,8 @@ namespace Xamarin.Forms.Xaml
 						continue;
 					}
 
-					var rootnode = new RuntimeRootNode(new XmlType(reader.NamespaceURI, reader.Name, null), view, (IXmlNamespaceResolver)reader);
+					var typeArguments = XamlParser.GetTypeArguments(reader);
+					var rootnode = new RuntimeRootNode(new XmlType(reader.NamespaceURI, reader.Name, typeArguments), view, (IXmlNamespaceResolver)reader);
 					XamlParser.ParseXaml(rootnode, reader);
 					Visit(rootnode, new HydrationContext {
 						RootElement = view,
@@ -119,7 +120,8 @@ namespace Xamarin.Forms.Xaml
 						continue;
 					}
 
-					var rootnode = new RuntimeRootNode(new XmlType(reader.NamespaceURI, reader.Name, null), null, (IXmlNamespaceResolver)reader);
+					var typeArguments = XamlParser.GetTypeArguments(reader);
+					var rootnode = new RuntimeRootNode(new XmlType(reader.NamespaceURI, reader.Name, typeArguments), null, (IXmlNamespaceResolver)reader);
 					XamlParser.ParseXaml(rootnode, reader);
 					var visitorContext = new HydrationContext {
 						ExceptionHandler = exceptionHandler,
